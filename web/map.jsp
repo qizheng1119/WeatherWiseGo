@@ -68,6 +68,7 @@
         </div>
         <div class="h-100" id="map"></div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDDfFI68giTw1X5a77tigXlzKMMqrGLYyg&libraries=places,marker&loading=async&callback=initMap"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script src="map.js"></script>

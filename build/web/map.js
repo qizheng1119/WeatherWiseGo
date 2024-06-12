@@ -18,6 +18,10 @@ var directionsDisplay = new google.maps.DirectionsRenderer();
 const curBaseUrl = 'http://api.openweathermap.org/data/2.5/weather?';//get current weather
 const apiOpen = '6b128e7311c4e187e1b9f41a10cacc13';//openweathermap api
 
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element');
+}
+
 var options = {
     componentRestrictions: {country: "my"}
 };

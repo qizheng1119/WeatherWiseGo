@@ -21,6 +21,7 @@
     </head>
 
     <body id="gifBack">
+        
         <div style="width: 100%;">
             <div style="height: 50vh;"></div>
             <div class="container-fluid">
@@ -43,7 +44,7 @@
         </div>
         <footer>
         </footer>
-        
+
     </body>
 
 </html>

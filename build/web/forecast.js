@@ -12,6 +12,11 @@ var lon = 0;
 
 document.addEventListener("DOMContentLoaded", getCurrentLoc);//run this function when open html
 
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element');
+}
+
+
 function getCurrentLoc() {
     let header = document.getElementById("indexHeader");
     header.classList.add("active");

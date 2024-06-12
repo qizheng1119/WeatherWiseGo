@@ -24,7 +24,10 @@
                             <a class="nav-link" href="map.jsp" id="mapHeader">Map</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Profile</a>
+                            <a class="nav-link" href="setting.jsp">Profile</a>
+                        </li>
+                        <li class="nav-item">
+                            <div id="google_translate_element"></div>
                         </li>
                     </ul>
                 </div>
