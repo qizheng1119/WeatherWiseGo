@@ -7,10 +7,14 @@ const forBaseUrl = 'http://api.openweathermap.org/data/2.5/forecast?';//get fore
 const apiOpen = '6b128e7311c4e187e1b9f41a10cacc13';//openweathermap api
 const apiGif = "bb39r1HmGN0yDNLfMF9pReqQxBUwem4e"; //giphy api
 const gifBaseUrl = `https://api.giphy.com/v1/gifs/search?api_key=${apiGif}&limit=1&q=`; //giphy url
+var lat = 0;
+var lon = 0;
 
 document.addEventListener("DOMContentLoaded", getCurrentLoc);//run this function when open html
 
 function getCurrentLoc() {
+    let header = document.getElementById("indexHeader");
+    header.classList.add("active");
     //check geolocation (can get current location or not)
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(currLoc);
@@ -21,8 +25,8 @@ function getCurrentLoc() {
 
 //get current location
 function currLoc(position) {
-    let lat = position.coords.latitude.toFixed(2);
-    let lon = position.coords.longitude.toFixed(2);
+    lat = position.coords.latitude.toFixed(2);
+    lon = position.coords.longitude.toFixed(2);
     getCurrentWeather(lat, lon);
     getForecast(lat, lon);
 }
@@ -31,13 +35,13 @@ function currLoc(position) {
 function getCurrentWeather(lat, lon) {
     let curUrl = `${curBaseUrl}lat=${lat}&lon=${lon}&appid=${apiOpen}&units=metric`;
     fetch(curUrl)
-        .then(response => response.json())
-        .then(data => {
-            console.log(data);
-            let today = new Date(data.dt * 1000);
-            let cur = document.getElementById("currentWeather");
-            let des = data.weather[0].main;
-            cur.innerHTML = `<div>
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                let today = new Date(data.dt * 1000);
+                let cur = document.getElementById("currentWeather");
+                let des = data.weather[0].main;
+                cur.innerHTML = `<div>
             <h6 class="text-light fw-bold">
                 Current Weather <br> ${today.toDateString()}
             </h6>
@@ -76,23 +80,23 @@ function getCurrentWeather(lat, lon) {
                 </div>
             </div>
         </div>`;
-            getGiphy(des);
-        })
-        .catch(console.error);
+                getGiphy(des);
+            })
+            .catch(console.error);
 }
 
 function getForecast(lat, lon) {
     let curForUrl = `${forBaseUrl}lat=${lat}&lon=${lon}&appid=${apiOpen}&units=metric`;
     fetch(curForUrl)
-        .then(response => response.json())
-        .then(data => {
-            console.log(data);
-            let forPage = document.getElementById("forecastWeather");
-            const indexs = [8, 16, 24, 32];
-            let getData = indexs.map(index => data.list[index]);
-            forPage.innerHTML = getData.map((day, i) => {
-                let dateDay = new Date(day.dt * 1000);
-                return `<div class="align-self-center col-md-3">
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                let forPage = document.getElementById("forecastWeather");
+                const indexs = [7, 15, 23, 31];
+                let getData = indexs.map(index => data.list[index]);
+                forPage.innerHTML = getData.map((day, i) => {
+                    let dateDay = new Date(day.dt * 1000);
+                    return `<div class="align-self-center col-md-3">
                 <div class="card ms-2 me-2" style="background-color: #989898;">
                     <p class="p-2 card-title text-light">${dateDay.toDateString()}</p>
                     <img src="https://openweathermap.org/img/wn/${day.weather[0].icon}@2x.png" class="card-img-top"
@@ -103,30 +107,30 @@ function getForecast(lat, lon) {
                     </div>
                 </div>
             </div>`;
-            }).join(' ');
-        })
-        .catch(console.error);
+                }).join(' ');
+            })
+            .catch(console.error);
 }
 
 //get giphy
 function getGiphy(des) {
     let giphyUrl = gifBaseUrl + encodeURIComponent(des);
     fetch(giphyUrl)
-        .then(response => response.json())
-        .then(content => {
-            if (content.data.length > 0) {
-                let img = content.data[0].images.downsized.url;
-                let gifImg = document.getElementById("gifBack");
-                gifImg.style.backgroundImage=`url(${img})`;
-                gifImg.style.backgroundPosition="center";
-                gifImg.style.backgroundSize="cover";
-            } else {
-                alert("No results found");
-            }
-        })
-        .catch(err => {
-            console.error(err);
-            alert("Error fetching data");
-        });
+            .then(response => response.json())
+            .then(content => {
+                if (content.data.length > 0) {
+                    let img = content.data[0].images.downsized.url;
+                    let gifImg = document.getElementById("gifBack");
+                    gifImg.style.backgroundImage = `url(${img})`;
+                    gifImg.style.backgroundPosition = "center";
+                    gifImg.style.backgroundSize = "cover";
+                } else {
+                    alert("No results found");
+                }
+            })
+            .catch(err => {
+                console.error(err);
+                alert("Error fetching data");
+            });
 }
 
